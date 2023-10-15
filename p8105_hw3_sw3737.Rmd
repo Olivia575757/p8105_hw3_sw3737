@@ -140,3 +140,20 @@ ggplot(merged_data, aes(x = age, fill = sex)) +
   scale_fill_manual(values = c("male" = "blue", "female" = "pink"))
 ```
 
+# Plot of total activities vs age
+```{r}
+total_activity_data <- merged_data %>%
+  group_by(seqn, age, sex, education) %>%
+  summarise(total_activity = sum(min_value, na.rm = TRUE))
+
+ggplot(total_activity_data, aes(x = age, y = total_activity, color = sex)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~education) +
+  labs(title = "Total Activity vs Age by Sex and Education",
+       x = "Age",
+       y = "Total Activity") +
+  theme_minimal() +
+  scale_color_manual(values = c("male" = "blue", "female" = "pink"))
+```
+
