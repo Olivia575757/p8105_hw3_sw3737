@@ -13,12 +13,14 @@ library(ggplot2)
 ```
 
 # Data import
+
 ```{r}
 library(p8105.datasets)
 data("brfss_smart2010")
 ```
 
 # Data cleaning
+
 ```{r}
 brfss_clean <- brfss_smart2010 %>% 
   janitor::clean_names() %>%
@@ -28,6 +30,7 @@ brfss_clean <- brfss_smart2010 %>%
 ```
 
 # State analysis for 2002 and 2010
+
 ```{r}
 brfss_clean %>%
   group_by(year, locationabbr) %>%
@@ -35,10 +38,10 @@ brfss_clean %>%
   filter((year == 2002 | year == 2010) & counties >= 7)
 ```
 
-Comments: In 2002, 6 states were observed at 7 or more locations (CT, FL, MA, NC, NJ, PA).
-In 2010, 14 states were observed at 7 or more locations (CA, CO, FL, MA, MD, NC, NE, NJ, NY, OH, PA, SC, TX, WA).
+Comments: In 2002, 6 states were observed at 7 or more locations (CT, FL, MA, NC, NJ, PA). In 2010, 14 states were observed at 7 or more locations (CA, CO, FL, MA, MD, NC, NE, NJ, NY, OH, PA, SC, TX, WA).
 
 # Construct a dataset
+
 ```{r}
 excellent_data <- brfss_clean %>% 
   filter(response == "Excellent") %>%
@@ -55,6 +58,7 @@ ggplot(excellent_data, aes(x = year, y = avg_data_value, group = locationabbr, c
 Comments: The "spaghetti" plot only contains `excellent` responses, `year`, `state`, and the `average values` across locations within a state.
 
 # Two-Panel Plot for 2006 and 2010
+
 ```{r}
 ny_data <- brfss_clean %>% 
   filter(locationabbr == "NY", year %in% c(2006, 2010))
@@ -71,15 +75,18 @@ Comments: These two-panel plots show the distribution of `data_value` for respon
 
 ## Problem 2
 
-```{r setup, include=FALSE}
+```{r set, include=FALSE}
 library(readr)
 library(tidyverse)
+library(tidyr)
 library(dplyr)
+library(janitor)
 ```
 
 # Demographics data cleaning
+
 ```{r}
-demographics <- read_csv("Data files/nhanes_covar.csv", skip = 4) %>%
+nhanes_covar <- read_csv("Data files/nhanes_covar.csv", skip = 4) %>%
   janitor::clean_names() %>% 
   mutate(
     sex = recode(sex, "1" = "male", "2" = "female"),
@@ -95,3 +102,19 @@ demographics <- read_csv("Data files/nhanes_covar.csv", skip = 4) %>%
          !is.na(education))
 ```
 
+# Accelerometer data cleaning and merge the two datasets
+
+```{r}
+nhanes_accel <- read_csv("Data files/nhanes_accel.csv") %>%
+  janitor::clean_names() %>%
+  pivot_longer(
+    min1:min1440,
+    names_to = "min",
+    values_to = "min_value"
+  ) %>%
+  separate(min, into = c("prefix","min"), sep = 3) %>%
+  select(-prefix)
+  
+merged_data <- inner_join(nhanes_accel, nhanes_covar, by = "seqn") %>%
+    mutate(education = factor(education, levels = c("Less than high school", "High school equivalent", "More than high school")))
+```
