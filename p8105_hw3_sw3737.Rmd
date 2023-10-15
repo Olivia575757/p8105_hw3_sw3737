@@ -37,3 +37,17 @@ brfss_clean %>%
 In 2002, 6 states were observed at 7 or more locations (CT, FL, MA, NC, NJ, PA).
 In 2010, 14 states were observed at 7 or more locations (CA, CO, FL, MA, MD, NC, NE, NJ, NY, OH, PA, SC, TX, WA).
 
+# Construct a dataset
+```{r}
+excellent_data <- brfss_clean %>% 
+  filter(response == "Excellent") %>%
+  group_by(year, locationabbr) %>%
+  summarise(avg_data_value = mean(data_value, na.rm = TRUE), .groups = "drop")
+
+ggplot(excellent_data, aes(x = year, y = avg_data_value, group = locationabbr, color = locationabbr)) +
+  geom_line() +
+  labs(title = "Average Value of 'Excellent' Responses Over Time by State",
+       x = "Year", y = "Average Value") +
+  theme_minimal() 
+```
+
