@@ -128,3 +128,15 @@ table_data <- merged_data %>%
 table_data
 ```
 
+# Visualization of age distributions for men and women in each education category
+```{r}
+ggplot(merged_data, aes(x = age, fill = sex)) +
+  geom_histogram(alpha = 0.7, position = "identity") +
+  facet_wrap(~education) +
+  labs(title = "Age Distribution by Sex and Education",
+       x = "Age",
+       y = "Count") +
+  theme_minimal() +
+  scale_fill_manual(values = c("male" = "blue", "female" = "pink"))
+```
+
