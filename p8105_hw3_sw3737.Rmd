@@ -157,3 +157,19 @@ ggplot(total_activity_data, aes(x = age, y = total_activity, color = sex)) +
   scale_color_manual(values = c("male" = "blue", "female" = "pink"))
 ```
 
+# 24-Hour activity time courses plot
+```{r}
+activity_time_course <- merged_data %>%
+  group_by(min, education, sex) %>%
+  summarise(avg_activity = mean(min_value, na.rm = TRUE))
+
+ggplot(activity_time_course, aes(x = as.numeric(min), y = avg_activity, color = sex)) +
+  geom_line() +
+  facet_wrap(~education) +
+  labs(title = "24-Hour Activity Time Course by Sex and Education",
+       x = "Time (Minutes from Midnight)",
+       y = "Average Activity") +
+  theme_minimal() +
+  scale_color_manual(values = c("male" = "blue", "female" = "pink"))
+```
+
