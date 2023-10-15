@@ -51,3 +51,16 @@ ggplot(excellent_data, aes(x = year, y = avg_data_value, group = locationabbr, c
   theme_minimal() 
 ```
 
+# Two-Panel Plot for 2006 and 2010
+```{r}
+ny_data <- brfss_clean %>% 
+  filter(locationabbr == "NY", year %in% c(2006, 2010))
+
+ggplot(ny_data, aes(x = response, y = data_value)) +
+  geom_boxplot() +
+  facet_wrap(~ year) +
+  labs(title = "Distribution of Responses in NY for 2006 and 2010",
+       x = "Response", y = "Data Value") +
+  theme_minimal()
+```
+
