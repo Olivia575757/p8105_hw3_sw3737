@@ -179,4 +179,4 @@ ggplot(activity_time_course, aes(x = as.numeric(min), y = avg_activity, color = 
   scale_color_manual(values = c("male" = "blue", "female" = "pink"))
 ```
 
-Comments: The graph seems to follow a `diurnal rhythm`, where there's an increase in activity during the day and a decrease during the nighttime for all education levels. The peaks of activity occur approximately at mid-day. In all three education categories, `females tend to have higher activity levels during the day` as compared to males.There is very `minimal activity during the late-night hours` for all groups, indicating that most participants are likely at rest or sleeping.
+Comments: The graph seems to follow a `diurnal rhythm`, where there's an increase in activity during the day and a decrease during the nighttime for all education levels. The peaks of activity occur approximately at mid-day. In all three education categories, `females tend to have higher activity levels during the day` as compared to males.There is very `minimal activity during the late-night hours` for all groups, indicating that most participants are likely at rest.
