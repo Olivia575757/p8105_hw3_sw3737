@@ -55,7 +55,7 @@ ggplot(excellent_data, aes(x = year, y = avg_data_value, group = locationabbr, c
   theme_minimal() 
 ```
 
-Comments: The "spaghetti" plot only contains `excellent` responses, `year`, `state`, and the `average values` across locations within a state.
+Comments: The "spaghetti" plot illustrates the average value of "Excellent" responses over time for each state, spanning the years 2002 to 2010. The graph is populated with a multitude of colorful lines, each representing a different state, showcasing the variation in responses over the years. Many states exhibit fluctuating trends, indicating changes in the perception of what constitutes an "Excellent" response. 
 
 # Two-Panel Plot for 2006 and 2010
 
@@ -71,9 +71,9 @@ ggplot(ny_data, aes(x = response, y = data_value)) +
   theme_minimal()
 ```
 
-Comments: These two-panel plots show the distribution of `data_value` for responses from `poor` to `excellent` among locations in NY State. Data in 2010 has an overall higher values than 2006 in all five response groups.
+Comments: These two-panel plots show the distribution of `data_value` for responses from `poor` to `excellent` among locations in NY State. In 2006, the median value for `Good` and `Very good` responses is relatively high, while by 2010, the median for these categories has slightly decreased. Conversely, the `Excellent` category saw a rise in its median value from 2006 to 2010. This suggests a shift in the distribution of responses over this four-year period in New York.
 
-## Problem 2
+## Problem 3
 
 ```{r set, include=FALSE}
 library(readr)
