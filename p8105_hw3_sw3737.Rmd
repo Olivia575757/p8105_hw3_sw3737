@@ -68,3 +68,30 @@ ggplot(ny_data, aes(x = response, y = data_value)) +
 ```
 
 Comments: These two-panel plots show the distribution of `data_value` for responses from `poor` to `excellent` among locations in NY State. Data in 2010 has an overall higher values than 2006 in all five response groups.
+
+## Problem 2
+
+```{r setup, include=FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+```
+
+# Demographics data cleaning
+```{r}
+demographics <- read_csv("Data files/nhanes_covar.csv", skip = 4) %>%
+  janitor::clean_names() %>% 
+  mutate(
+    sex = recode(sex, "1" = "male", "2" = "female"),
+    education = recode(education, 
+                       "1" = "Less than high school",
+                       "2" = "High school equivalent",
+                       "3" = "More than high school")
+  ) %>%
+  filter(age >= 21 & 
+         !is.na(sex) & 
+         !is.na(age) & 
+         !is.na(bmi) & 
+         !is.na(education))
+```
+
