@@ -128,6 +128,8 @@ table_data <- merged_data %>%
 table_data
 ```
 
+Comments: It displays a tabulated count of individuals based on their education level and gender. It highlights three education categories: `Less than high school`, `High school equivalent`, and `More than high school`. For `Less than high school` and `More than high school level`, females tend to have slightly higher counts than males.
+
 # Visualization of age distributions for men and women in each education category
 ```{r}
 ggplot(merged_data, aes(x = age, fill = sex)) +
@@ -139,6 +141,8 @@ ggplot(merged_data, aes(x = age, fill = sex)) +
   theme_minimal() +
   scale_fill_manual(values = c("male" = "blue", "female" = "pink"))
 ```
+
+Comments: It illustrates the age distribution of individuals categorized by sex and education. It's observed that for the `Less than high school` education category, the `highest counts are concentrated around the age range of 60-80 years`. While for the `More than high school` category, there's a `significant rise in counts for females between the ages of 20-40`. The chart provides a visual representation of how age and educational attainment intersect with gender.
 
 # Plot of total activities vs age
 ```{r}
@@ -157,6 +161,8 @@ ggplot(total_activity_data, aes(x = age, y = total_activity, color = sex)) +
   scale_color_manual(values = c("male" = "blue", "female" = "pink"))
 ```
 
+Comments: There is a `declining trend in total activity with increasing age across all education levels`. In all three education categories, `females generally have a higher total activity level` than males across various age groups. The decline in activity with age seems steeper for those with `Less than high school` education as compared to the other two categories.
+
 # 24-Hour activity time courses plot
 ```{r}
 activity_time_course <- merged_data %>%
@@ -173,3 +179,4 @@ ggplot(activity_time_course, aes(x = as.numeric(min), y = avg_activity, color = 
   scale_color_manual(values = c("male" = "blue", "female" = "pink"))
 ```
 
+Comments: The graph seems to follow a `diurnal rhythm`, where there's an increase in activity during the day and a decrease during the nighttime for all education levels. The peaks of activity occur approximately at mid-day. In all three education categories, `females tend to have higher activity levels during the day` as compared to males.There is very `minimal activity during the late-night hours` for all groups, indicating that most participants are likely at rest or sleeping.
